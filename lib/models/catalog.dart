@@ -1,27 +1,34 @@
 class CatalogModel {
-  static final items = [
-    Item(
-      id: "1",
-      name: "iPhone 13 Pro MAX",
-      desc: "This is the most expensive phone in the world",
-      price: 999.99,
-      imageURL:
-          "https://www.apple.com/v/iphone-14-pro/h/images/key-features/compare/compare_iphone_14_pro__dny32075a7ki_large.jpg",
-    )
-  ];
+  static List<Item>? items;
 }
 
 class Item {
   final String id;
   final String name;
   final String desc;
-  final double price;
-  final String imageURL;
+  final int price;
+  final String image;
 
   Item(
       {required this.id,
       required this.name,
       required this.desc,
       required this.price,
-      required this.imageURL});
+      required this.image});
+
+  factory Item.fromMap(Map<String, dynamic> mp) => Item(
+        id: mp["id"],
+        name: mp["name"],
+        desc: mp["desc"],
+        price: mp["price"],
+        image: mp["image"],
+      );
+
+  toMap() => {
+        "id": id,
+        "name": name,
+        "desc": desc,
+        "price": price,
+        "image": image,
+      };
 }
