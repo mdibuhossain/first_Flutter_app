@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,10 +25,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   loadData() async {
-    await Future.delayed(Duration(seconds: 1));
-    var catalogJson = await rootBundle.loadString("assets/files/catalog.json");
-    var decodeData = jsonDecode(catalogJson);
-    var productList = decodeData["products"];
+    final response = await http
+        .get(Uri.parse("https://api.jsonbin.io/v3/b/64a1e5c1b89b1e2299b8c2d9"));
+    final catalogJson = response.body;
+    final decodeData = jsonDecode(catalogJson);
+    var productList = decodeData["record"]["products"];
     CatalogModel.items =
         List.from(productList).map<Item>((item) => Item.fromMap(item)).toList();
     setState(() {});
@@ -43,9 +45,10 @@ class _HomePageState extends State<HomePage> {
       body: CupertinoScrollbar(
         thickness: 5.0,
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
           child: (CatalogModel.items != null && CatalogModel.items!.isNotEmpty)
               ? ListView.builder(
+                  physics: BouncingScrollPhysics(),
                   itemCount: CatalogModel.items?.length,
                   itemBuilder: (context, index) => ItemWidget(
                     item: CatalogModel.items![index],

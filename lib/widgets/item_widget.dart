@@ -12,7 +12,7 @@ class ItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: InkWell(
-        onTap: () => print("${item.name} pressed!"),
+        onTap: () => print("${item.id} pressed!"),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: ListTile(
