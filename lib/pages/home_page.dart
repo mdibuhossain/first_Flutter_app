@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:test_android_app/models/catalog.dart';
 import 'package:test_android_app/widgets/item_widget.dart';
 import 'package:test_android_app/widgets/drawer.dart';
@@ -45,7 +44,7 @@ class _HomePageState extends State<HomePage> {
       body: CupertinoScrollbar(
         thickness: 5.0,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
           child: (CatalogModel.items != null && CatalogModel.items!.isNotEmpty)
               ? ListView.builder(
                   physics: BouncingScrollPhysics(),

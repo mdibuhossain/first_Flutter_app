@@ -2,17 +2,19 @@
 
 import 'dart:async';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:test_android_app/utils/routers.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
   bool flag = false;
+  bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
 
   handleLogin(BuildContext context) async {
@@ -83,11 +85,20 @@ class _LoginPageState extends State<LoginPage> {
                       height: 15,
                     ),
                     TextFormField(
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         hintText: "Enter password",
                         labelText: "Password",
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _obscureText = !_obscureText;
+                              });
+                            },
+                            icon: Icon(!_obscureText
+                                ? Icons.visibility_rounded
+                                : Icons.visibility_off_rounded)),
                       ),
-                      obscureText: true,
+                      obscureText: _obscureText,
                       enableSuggestions: false,
                       autocorrect: false,
                       validator: (value) {
